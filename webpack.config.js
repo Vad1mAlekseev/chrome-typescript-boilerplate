@@ -11,9 +11,10 @@ const config = {
   devtool: isDev ? 'inline-source-map' : false,
   entry: {
     popup: path.resolve(__dirname, 'src', 'popup', 'index.ts'),
+    background: path.resolve(__dirname, 'src', 'background', 'app.ts'),
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'build'),
   },
   module: {
@@ -26,7 +27,6 @@ const config = {
     ],
   },
   plugins: [
-    // new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'popup', 'index.html'),
       filename: 'popup.html',
@@ -34,13 +34,27 @@ const config = {
     }),
     new CopyWebpackPlugin([
       {
-        from: path.join(__dirname, 'src', 'manifest.json'),
+        from: path.join(__dirname, 'chrome', 'manifest.json'),
         to: '.',
+        transform(content) {
+          return Buffer.from(JSON.stringify({
+            ...JSON.parse(content.toString()),
+            name: process.env.npm_package_name,
+            description: process.env.npm_package_description,
+            version: process.env.npm_package_version,
+          }));
+        },
       },
     ]),
+    new CopyWebpackPlugin([
+      {
+        from: path.join(__dirname, 'chrome', 'icons'),
+        to: path.join('.')
+      }
+    ])
   ],
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js', '.html' ],
+    extensions: ['.tsx', '.ts', '.js'],
   },
 };
 
