@@ -1,28 +1,35 @@
 {
-  "name": "extension-hello-world",
-  "version": "0.0.1",
-  "description": "my first extension for google chrome",
+  "name": "chrome-extension-boilerplate",
+  "version": "1.0.0",
+  "description": "chrome extension boilerplate",
   "scripts": {
-    "watch": "NODE_ENV=development webpack --watch",
-    "build": "NODE_ENV=production webpack"
+    "build": "ts-node scripts/build",
+    "watch": "env NODE_ENV=development webpack_watch=truthy ts-node scripts/build"
   },
   "keywords": [
     "extension",
-    "google-chrome"
+    "chrome",
+    "boilerplate"
   ],
   "author": "Vadyas",
-  "license": "ISC",
+  "license": "BSD-3-Clause",
   "devDependencies": {
+    "@types/chrome": "0.0.104",
+    "@types/copy-webpack-plugin": "^5.0.0",
+    "@types/html-webpack-plugin": "^3.2.2",
     "@types/lodash": "^4.14.149",
+    "@types/node": "^13.11.1",
+    "@types/webpack": "^4.41.10",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "html-webpack-plugin": "^4.2.0",
     "ts-loader": "^6.2.2",
+    "ts-node": "^8.8.2",
     "typescript": "^3.8.3",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "webpack": "^4.42.1"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "lodash": "^4.17.15"
   }
 }
