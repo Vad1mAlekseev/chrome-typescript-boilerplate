@@ -1,11 +1,13 @@
 import { webpackBuild, copyManifest } from './tasks';
 
 async function build() {
-  await webpackBuild();
+  const stats = await webpackBuild();
   await copyManifest();
+  return stats;
 }
 
 console.time('build-time');
-build().then(() => {
+build().then((stats) => {
+  console.log(stats.toString());
   console.timeEnd('build-time');
 });
