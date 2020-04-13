@@ -21,7 +21,7 @@ export default function getWebpackConfig(): webpack.Configuration {
     },
     devtool: isDev ? 'inline-source-map' : false,
     entry: {
-      popup: path.resolve(__dirname, 'src', 'popup', 'index.ts'),
+      popup: path.resolve(srcPath, 'popup', 'index.ts'),
       background: path.resolve(
         srcPath,
         'background',
